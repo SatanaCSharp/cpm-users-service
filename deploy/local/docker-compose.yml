@@ -1,0 +1,58 @@
+version: '3.9'
+
+services:
+  server:
+    container_name: cmp-users-service
+    image: cmp-users-service:latest
+
+    build:
+      context: ../../
+      dockerfile: Dockerfile
+      target: development
+    command: >
+      sh -c "
+        while ! nc -z users_database 5432;
+        do
+          echo cmp-users-service is not started;
+          sleep 3s;
+        done;
+      sleep 3s;
+      echo cmp-users-service has been started!;
+      pnpm start:dev
+      "
+    volumes:
+      - ../../src:/var/www/html/app/src
+      - ../../dist:/var/www/html/app/dist
+      - ../../test:/var/www/html/app/test:ro
+      - ../../package.json:/var/www/html/app/package.json:ro
+      - ../../tsconfig.build.json:/var/www/html/app/tsconfig.build.json:ro
+      - ../../tsconfig.json:/var/www/html/app/tsconfig.json:ro
+    env_file:
+      - .env
+
+    ports:
+      - ${PORT}:${PORT}
+      - ${DEBUG_PORT}:${DEBUG_PORT}
+
+    depends_on:
+      - users_database
+    networks:
+      - public
+
+  users_database:
+    container_name: users_database
+    image: postgis/postgis:14-3.3-alpine
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=users_database
+    networks:
+      - public
+networks:
+  public:
+    external:
+      name: public
