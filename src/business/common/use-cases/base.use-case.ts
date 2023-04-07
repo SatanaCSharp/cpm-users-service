@@ -1,6 +1,3 @@
-export abstract class BaseUseCase<
-  Request extends Record<string | number, unknown>,
-  Response,
-> {
+export abstract class BaseUseCase<Request, Response = void> {
   protected abstract execute(request: Request): Promise<Response>;
 }

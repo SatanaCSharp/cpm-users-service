@@ -19,7 +19,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "prisma": "dotenv -e ./deploy/local/.env prisma"
+    "prisma": "dotenv -e ./deploy/local/.env prisma",
+    "prisma:generate": "prisma generate",
+    "postinstall": "pnpm prisma:generate"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.8.13",
@@ -28,6 +30,9 @@
     "@nestjs/core": "^9.3.12",
     "@nestjs/platform-express": "^9.3.12",
     "@prisma/client": "^4.11.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "nestjs-prisma": "^0.20.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0"
   },

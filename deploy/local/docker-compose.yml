@@ -2,9 +2,9 @@ version: '3.9'
 
 services:
   server:
-    container_name: cmp-users-service
-    image: cmp-users-service:latest
-
+    container_name: cpm-users-service
+    image: cpm-users-service:latest
+    working_dir: /var/www/html/app
     build:
       context: ../../
       dockerfile: Dockerfile
@@ -13,16 +13,17 @@ services:
       sh -c "
         while ! nc -z users_database 5432;
         do
-          echo cmp-users-service is not started;
+          echo cpm-users-service is not started;
           sleep 3s;
         done;
       sleep 3s;
-      echo cmp-users-service has been started!;
+      echo cpm-users-service has been started!;
+      pnpm install --quiet;
       pnpm start:dev
       "
     volumes:
-      - ../../src:/var/www/html/app/src
-      - ../../dist:/var/www/html/app/dist
+      - ../../src:/var/www/html/app/src:cached
+      - ../../prisma:/var/www/html/app/prisma:cached
       - ../../test:/var/www/html/app/test:ro
       - ../../package.json:/var/www/html/app/package.json:ro
       - ../../tsconfig.build.json:/var/www/html/app/tsconfig.build.json:ro
