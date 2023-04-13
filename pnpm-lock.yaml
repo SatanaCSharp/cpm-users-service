@@ -30,7 +30,7 @@ dependencies:
     version: 0.14.0
   cpm-proto:
     specifier: github:SatanaCSharp/cpm-proto
-    version: github.com/SatanaCSharp/cpm-proto/e003adabbc4415eb2564c7c72bac9a222bca1705
+    version: github.com/SatanaCSharp/cpm-proto/7f99c71033b4df19e3235e302193d8244c550ace
   nestjs-prisma:
     specifier: ^0.20.0
     version: 0.20.0(@nestjs/common@9.4.0)(@prisma/client@4.12.0)(prisma@4.12.0)
@@ -5384,8 +5384,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  github.com/SatanaCSharp/cpm-proto/e003adabbc4415eb2564c7c72bac9a222bca1705:
-    resolution: {tarball: https://codeload.github.com/SatanaCSharp/cpm-proto/tar.gz/e003adabbc4415eb2564c7c72bac9a222bca1705}
+  github.com/SatanaCSharp/cpm-proto/7f99c71033b4df19e3235e302193d8244c550ace:
+    resolution: {tarball: https://codeload.github.com/SatanaCSharp/cpm-proto/tar.gz/7f99c71033b4df19e3235e302193d8244c550ace}
     name: cpm-proto
     version: 1.0.0
     dev: false

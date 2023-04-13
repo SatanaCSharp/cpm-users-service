@@ -12,7 +12,7 @@ async function bootstrap() {
     options: {
       url: configService.getOrThrow('GRPC_URL'),
       package: PROTOBUF_PACKAGE,
-      protoPath: 'node_modules/cpm-proto/proto/users/root.proto',
+      protoPath: 'node_modules/cpm-proto/users/root.proto',
     },
   });
 
