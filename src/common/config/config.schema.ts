@@ -13,6 +13,10 @@ export class ConfigSchema {
   @IsString()
   readonly DATABASE_URL!: string;
 
+  @IsNotEmpty()
+  @IsString()
+  readonly GRPC_URL!: string;
+
   @IsBoolean()
   readonly IS_DB_LOGGING: boolean;
 }

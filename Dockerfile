@@ -2,7 +2,8 @@ FROM node:18.14-alpine As development
 
 RUN corepack enable & corepack prepare pnpm@latest --activate
 
-WORKDIR /usr/src/app
+WORKDIR /var/www/html/app
+RUN apk add --no-cache git
 COPY ../.. .
 RUN pnpm install --frozen-lockfile
 RUN pnpm build

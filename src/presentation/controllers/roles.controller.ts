@@ -1,23 +1,26 @@
-import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import { Body, Controller } from '@nestjs/common';
 import { CreateRoleUseCase, GetRolesUseCase } from '@business/use-cases/roles';
 import { CreateRoleDto } from '@presentation/dto/roles';
-import { IRolesCommand, RolesCommand } from '@business/stores/roles/commands';
-import { IRolesQuery, RolesQuery } from '@business/stores/roles/queries';
+import { IRolesCommand } from '@business/stores/roles/commands';
+import { IRolesQuery } from '@business/stores/roles/queries';
+import { RolesCommandInject, RolesQueryInject } from '@presentation/injects';
+import { GrpcMethod } from '@nestjs/microservices';
+import { GRPC_ROLES_SERVICE } from '@common/config';
 
-@Controller('roles')
+@Controller()
 export class RolesController {
   constructor(
-    @Inject(RolesCommand.name)
+    @RolesCommandInject()
     private readonly rolesCommand: IRolesCommand,
-    @Inject(RolesQuery.name)
+    @RolesQueryInject()
     private readonly rolesQuery: IRolesQuery,
   ) {}
 
-  @Get()
+  @GrpcMethod(GRPC_ROLES_SERVICE)
   findAll() {
     return new GetRolesUseCase({ rolesQuery: this.rolesQuery }).execute();
   }
-  @Post()
+  @GrpcMethod(GRPC_ROLES_SERVICE)
   createRole(@Body() dto: CreateRoleDto) {
     return new CreateRoleUseCase({ rolesCommand: this.rolesCommand }).execute(
       dto,
