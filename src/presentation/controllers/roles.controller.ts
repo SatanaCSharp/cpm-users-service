@@ -1,4 +1,4 @@
-import { Body, Controller } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { CreateRoleUseCase, GetRolesUseCase } from '@business/use-cases/roles';
 import { CreateRoleDto } from '@presentation/dto/roles';
 import { IRolesCommand } from '@business/stores/roles/commands';
@@ -16,12 +16,12 @@ export class RolesController {
     private readonly rolesQuery: IRolesQuery,
   ) {}
 
-  @GrpcMethod(GRPC_ROLES_SERVICE)
-  findAll() {
+  @GrpcMethod(GRPC_ROLES_SERVICE, 'FindAll')
+  findAll(dto: unknown) {
     return new GetRolesUseCase({ rolesQuery: this.rolesQuery }).execute();
   }
-  @GrpcMethod(GRPC_ROLES_SERVICE)
-  createRole(@Body() dto: CreateRoleDto) {
+  @GrpcMethod(GRPC_ROLES_SERVICE, 'CreateRole')
+  createRole(dto: CreateRoleDto) {
     return new CreateRoleUseCase({ rolesCommand: this.rolesCommand }).execute(
       dto,
     );

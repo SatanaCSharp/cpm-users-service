@@ -8,6 +8,6 @@ COPY ../.. .
 RUN pnpm install --frozen-lockfile
 RUN pnpm build
 
-EXPOSE 6000
+EXPOSE 6050
 
 #ENTRYPOINT ["/usr/src/app/deploy/entrypoint.sh"]
